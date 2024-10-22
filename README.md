@@ -5,7 +5,7 @@ Instructions to run the model
 pip install -r requirements.txt
 
 
-• The github repository have 2 .py files, for two implemented model,
+• The github repository have 2 .py files, for two implemented model(both in models folder, also present individually),
 – Refiner.py
 – Generator.py
 
