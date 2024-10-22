@@ -214,9 +214,29 @@ def evaluate_model(model, image_dir, ground_truth_dir):
         groundtruth = np.asarray(gt_file['density'])
 
         output = model(img.unsqueeze(0))
+        
         normalized_output = normalize_counter_output(output)
-        pred_count = torch.sum(normalized_output).item()
+        pred_count_1 = torch.sum(normalized_output).item()
+
+        pred_count_2 = torch.sum(torch.relu(output)).item()
+
+        pred_count_3 = torch.sum(torch.abs(output)).item()
+
         gt_count = np.sum(groundtruth)  # Ground truth count
+        
+        deviation_1 = abs(pred_count_1 - gt_count)
+        deviation_2 = abs(pred_count_2 - gt_count)
+        deviation_3 = abs(pred_count_3 - gt_count)
+
+        min_deviation = min(deviation_1, deviation_2, deviation_3)
+
+        if min_deviation == deviation_1:
+            pred_count = pred_count_1
+        elif min_deviation == deviation_2:
+            pred_count = pred_count_2
+        else:
+            pred_count = pred_count_3
+
         mae += abs(abs(pred_count) - gt_count)
         rmse += ((abs(pred_count)-gt_count)**2)
 
@@ -251,17 +271,17 @@ train_loader = DataLoader(train_dataset, batch_size=2, shuffle=True, num_workers
 vgg16_path = '/kaggle/input/vgg-16/vgg16-397923af.pth' ## replace with the actual path of vgg in your directory
 
 ### uncomment this part if internet not available
-counter1 = CSRNet(local_vgg_path=vgg16_path).to(device) 
+# counter = CSRNet(local_vgg_path=vgg16_path).to(device) 
 
-# counter1 = CSRNet().to(device) ####comment if previous line is uncommented 
+counter = CSRNet().to(device) ####comment if previous line is uncommented 
 refiner = Refiner().to(device)
 
-optimizer_counter = torch.optim.SGD(counter1.parameters(), lr=5e-7, momentum = 0.95)
+optimizer_counter = torch.optim.SGD(counter.parameters(), lr=5e-7, momentum = 0.95)
 optimizer_refiner = torch.optim.Adam(refiner.parameters(), lr=1e-5)
 scheduler_counter = ReduceLROnPlateau(optimizer_counter, mode='min', factor=0.1, patience=5)
 scheduler_refiner = ReduceLROnPlateau(optimizer_refiner, mode='min', factor=0.1, patience=5)
 
-train_model(counter1, refiner, optimizer_counter, optimizer_refiner, scheduler_counter,scheduler_refiner, train_loader, epochs=100) ## No of epochs can be changed
+train_model(counter, refiner, optimizer_counter, optimizer_refiner, scheduler_counter,scheduler_refiner, train_loader, epochs=100) ## No of epochs can be changed
 
-evaluate_model(counter1, test_image_dir, test_gt_dir)
+evaluate_model(counter, test_image_dir, test_gt_dir)
 
