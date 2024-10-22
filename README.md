@@ -19,3 +19,5 @@ pip install -r requirements.txt
  python3 Refiner.py
 
  python3 Generator.py
+
+- You can increase number of epochs for training in the model implementation.
