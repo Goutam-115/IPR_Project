@@ -8,7 +8,7 @@ pip install -r requirements.txt
 • The github repository have 3 .py files, for two implemented model(both in models folder, also present individually),
 – Refiner.py
 – Generator.py
-- CoprimeDilation.py
+– CoprimeDilation.py
 
 • To run the model, specify the proper train data and test data directories in the dataloading section in the code. (specified in the code)
 
