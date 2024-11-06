@@ -5,9 +5,10 @@ Instructions to run the model
 pip install -r requirements.txt
 
 
-• The github repository have 2 .py files, for two implemented model(both in models folder, also present individually),
+• The github repository have 3 .py files, for two implemented model(both in models folder, also present individually),
 – Refiner.py
 – Generator.py
+- CoprimeDilation.py
 
 • To run the model, specify the proper train data and test data directories in the dataloading section in the code. (specified in the code)
 
@@ -19,6 +20,8 @@ pip install -r requirements.txt
  python3 Refiner.py
 
  python3 Generator.py
+
+ python3 CoprimeDilation.py
 
 - You can increase number of epochs for training in the model implementation.
 
