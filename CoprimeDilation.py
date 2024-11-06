@@ -147,10 +147,10 @@ def test(counter_network, test_images, test_dots):
     print(f'\nOverall MAE: {mae:.2f}, RMSE: {rmse:.2f}')
 
 # Example Usage
-train_images = [f"/kaggle/input/shanghaitech-with-people-density-map/ShanghaiTech/part_A/train_data/images/IMG_{i}.jpg" for i in range(1, 301)]
-train_dots = [f"/kaggle/input/shanghaitech-with-people-density-map/ShanghaiTech/part_A/train_data/ground-truth-h5/IMG_{i}.h5" for i in range(1, 301)]
-test_images = [f"/kaggle/input/shanghaitech-with-people-density-map/ShanghaiTech/part_A/test_data/images/IMG_{i}.jpg" for i in range(1, 183)]
-test_dots = [f"/kaggle/input/shanghaitech-with-people-density-map/ShanghaiTech/part_A/test_data/ground-truth-h5/IMG_{i}.h5" for i in range(1, 183)]
+train_images = [f"/kaggle/input/shanghaitech-with-people-density-map/ShanghaiTech/part_B/train_data/images/IMG_{i}.jpg" for i in range(1, 301)]
+train_dots = [f"/kaggle/input/shanghaitech-with-people-density-map/ShanghaiTech/part_B/train_data/ground-truth-h5/IMG_{i}.h5" for i in range(1, 301)]
+test_images = [f"/kaggle/input/shanghaitech-with-people-density-map/ShanghaiTech/part_B/test_data/images/IMG_{i}.jpg" for i in range(1, 183)]
+test_dots = [f"/kaggle/input/shanghaitech-with-people-density-map/ShanghaiTech/part_B/test_data/ground-truth-h5/IMG_{i}.h5" for i in range(1, 183)]
 
 counter_network = train(train_images, train_dots)
 test(counter_network, test_images, test_dots)
